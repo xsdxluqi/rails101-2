@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
    def create
    @group = Group.new(group_params)
-   
+
    if @group.save
       redirect_to groups_path
     else
@@ -25,13 +25,15 @@ class GroupsController < ApplicationController
    @group = Group.find(params[:id])
    end
 
-   def update
-    @group = Group.find(params[:id])
-
-    @group.update(group_params)
-
+  def update
+  @group = Group.find(params[:id])
+  
+  if @group.update(group_params)
     redirect_to groups_path, notice: "Update Success"
-  end
+   else
+    render :edit
+   end
+   end
 
    def destroy
     @group = Group.find(params[:id])
